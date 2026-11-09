@@ -1,0 +1,3 @@
+# Defer commercial release isolation until distribution is concrete
+
+Keep Rakazo package identifiers and licensing attribution, and defer Barry build/release implementation until a real distribution requirement defines its platforms and update model. Existing release workflows have Rakazo-specific tag triggers and identity assumptions, so independent Barry tags alone are not safe isolation; audit those workflows and their publishing destinations before any Barry release design or publication.
