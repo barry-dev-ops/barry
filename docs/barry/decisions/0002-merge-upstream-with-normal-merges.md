@@ -1,0 +1,3 @@
+# Integrate upstream with reviewed merge branches
+
+Keep Barry `main` long-lived and integrate upstream through temporary `sync/upstream-*` branches using normal Git merges and reviewed PRs. This preserves Barry's independent history and avoids rewriting the primary branch; conflict resolutions must be intentional, regression-checked, and escalated when they expose unsettled breaking or architectural choices. Push only to Barry's `origin`, never to upstream.

@@ -1,0 +1,3 @@
+# Keep Barry changes outside Rakazo by default
+
+Barry is a commercial product built on Rakazo, and the repository already has shared packages, provider-neutral adapter contracts, UI packages, and application composition roots. Keep Rakazo packages and applications upstream-owned by default; prefer composition and adapters, adding a Barry package only for real reusable functionality. Make narrow upstream-file changes only when no supported seam can provide the needed capability, and document why to reduce ongoing merge cost.
