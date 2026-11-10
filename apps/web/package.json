@@ -24,6 +24,7 @@
     "@rakazo/contracts": "workspace:*",
     "@rakazo/core": "workspace:*",
     "@rakazo/ui-tokens": "workspace:*",
+    "@barry/brand": "workspace:*",
     "@rakazo/ui-web": "workspace:*",
     "@sentry/react": "11.11.0",
     "@simplewebauthn/browser": "13.3.0",
