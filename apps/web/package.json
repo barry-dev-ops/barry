@@ -31,6 +31,7 @@
     "@rakazo/i18n": "workspace:*",
     "@rakazo/logging": "workspace:*",
     "@rakazo/ui-tokens": "workspace:*",
+    "@barry/brand": "workspace:*",
     "@rakazo/ui-web": "workspace:*",
     "@rolldown/plugin-babel": "0.2.4",
     "@sentry/react": "11.11.0",
