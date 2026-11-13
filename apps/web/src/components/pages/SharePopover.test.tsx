@@ -70,3 +70,22 @@ it("says under a choice only what its title does not", async () => {
   ]);
   await act(async () => root.unmount());
 });
+
+it("uses the readable link accent for the standalone shared indicator", async () => {
+  vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
+  const root = createRoot(document.body.appendChild(document.createElement("div")));
+  await act(async () =>
+    root.render(
+      <SharePopover
+        title="Plan"
+        owner={{ name: "", image: null }}
+        visibility="link"
+        shareUrl="https://example.test/p/1"
+        onVisibilityChange={() => {}}
+      />,
+    ),
+  );
+  expect(document.querySelector("svg.text-link")).not.toBeNull();
+  expect(document.querySelector("svg.text-primary")).toBeNull();
+  await act(async () => root.unmount());
+});

@@ -496,6 +496,26 @@ describe("Android action feedback", () => {
   );
 });
 
+describe("primary text actions", () => {
+  it.each(["light", "dark"] as const)(
+    "uses link tint without changing filled actions in %s mode",
+    (scheme) => {
+      appearance.value = scheme;
+      for (const variant of [undefined, "text"] as const) {
+        renderToStaticMarkup(<IosButton label="Continue" variant={variant} onPress={() => {}} />);
+        expect(swiftButton.mock.lastCall?.[0].modifiers).toContainEqual({
+          name: "tint",
+          value: tokensForAppearance(scheme)[variant ? "link" : "primary"],
+        });
+        expect(swiftText.mock.lastCall?.[0].modifiers).toContainEqual({
+          name: "foregroundStyle",
+          value: tokensForAppearance(scheme)[variant ? "link" : "primaryForeground"],
+        });
+      }
+    },
+  );
+});
+
 describe("destructive text actions", () => {
   it.each(["light", "dark"] as const)("uses red text and a 44pt target in %s mode", (scheme) => {
     appearance.value = scheme;

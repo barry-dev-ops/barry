@@ -158,7 +158,7 @@ it.each(["light", "dark"] as const)(
     expect(container.querySelectorAll("[data-check]")).toHaveLength(1);
     expect(
       native.text.mock.calls.some(
-        ([props]) => props.children === "✓" && props.color === tokens.primary,
+        ([props]) => props.children === "✓" && props.color === tokens.link,
       ),
     ).toBe(true);
     expect(

@@ -92,7 +92,7 @@ export default function AndroidMessageActionSheetHost() {
                 </ListItem.HeadlineContent>
                 {sheet.selected === index ? (
                   <ListItem.TrailingContent>
-                    <Text color={tokens.primary} style={{ typography: "bodyLarge" }}>
+                    <Text color={tokens.link} style={{ typography: "bodyLarge" }}>
                       ✓
                     </Text>
                   </ListItem.TrailingContent>

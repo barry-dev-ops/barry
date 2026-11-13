@@ -564,7 +564,7 @@ function PlanCard({
         styles.plan,
         {
           backgroundColor: tokens.card,
-          borderColor: selected ? tokens.primary : tokens.border,
+          borderColor: selected ? tokens.link : tokens.border,
           borderWidth: selected ? 2 : 1,
           // The thicker border must not shift the content.
           padding: selected ? 15 : 16,
@@ -585,7 +585,7 @@ function PlanCard({
             ios={selected ? "checkmark.circle.fill" : "circle"}
             android={selected ? "checkmark-circle" : "ellipse-outline"}
             size={22}
-            color={selected ? tokens.primary : tokens.faintForeground}
+            color={selected ? tokens.link : tokens.faintForeground}
           />
           <Text style={[styles.planTitle, { color: tokens.foreground }]}>{title}</Text>
         </View>
