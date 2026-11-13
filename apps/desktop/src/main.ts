@@ -112,6 +112,8 @@ const updaterEnvironment = {
 let requestingComputerAccess = false;
 let hostScreen: HostScreen | undefined;
 markOnce("rk:main:module-evaluated");
+// Keep the existing profile and session when only the display name changes.
+app.setPath("userData", path.join(app.getPath("appData"), "Rakazo"));
 if (PERFORMANCE_USER_DATA) {
   app.setPath("userData", PERFORMANCE_USER_DATA);
   app.setPath("sessionData", path.join(PERFORMANCE_USER_DATA, "session"));
@@ -175,7 +177,7 @@ async function probeServer(
         ok: false,
         status: response.status,
         url,
-        error: t("That address redirects elsewhere. Enter the final Rakazo server address."),
+        error: t("That address redirects elsewhere. Enter the final Barry server address."),
       };
     }
     if (!response.ok) {
@@ -192,7 +194,7 @@ async function probeServer(
         ok: false,
         status: response.status,
         url,
-        error: t("That address did not respond like a Rakazo server."),
+        error: t("That address did not respond like a Barry server."),
       };
     }
     return {

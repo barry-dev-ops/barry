@@ -46,6 +46,8 @@ describe("PWA build", () => {
   it("takes the manifest colors from the shared tokens", () => {
     const manifest = webManifest();
     expect(manifest).toMatchObject({
+      name: "Barry",
+      short_name: "Barry",
       id: "/",
       scope: "/",
       start_url: "/",

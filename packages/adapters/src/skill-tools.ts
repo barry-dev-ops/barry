@@ -54,7 +54,7 @@ function toRecord(row: AgentSkillRow): SkillRecord & { id: string } {
 
 export function builtinAgentSkillRecords(): Array<SkillRecord & { id: string }> {
   return BUILTIN_AGENT_SKILLS.map((skill) => ({
-    id: `builtin:${skill.name}`,
+    id: skill.id,
     name: skill.name,
     description: skill.description,
     content: skill.content,
