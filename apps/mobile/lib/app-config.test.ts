@@ -1,6 +1,7 @@
 import type { ConfigContext, ExpoConfig } from "expo/config";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import appConfig from "../app.config";
+import bundledConfig from "../app.json";
 
 beforeEach(() => {
   vi.stubEnv("EAS_BUILD_PROFILE", "production");
@@ -29,6 +30,13 @@ const passkeys = {
 };
 
 describe("mobile app config", () => {
+  it("ships Barry display naming without changing installation identity", () => {
+    expect(bundledConfig.expo.name).toBe("Barry");
+    expect(bundledConfig.expo.slug).toBe("rakazo");
+    expect(bundledConfig.expo.scheme).toBe("rakazo");
+    expect(bundledConfig.expo.ios.bundleIdentifier).toBe("com.rakazo.app");
+    expect(bundledConfig.expo.android.package).toBe("com.rakazo.app");
+  });
   it("loads the Firebase file path while preserving the existing config", () => {
     vi.stubEnv("GOOGLE_SERVICES_JSON", "/build/google-services.json");
 
