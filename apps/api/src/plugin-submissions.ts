@@ -334,7 +334,8 @@ export async function approvedPluginEntries(
       .replace(/^-|-$/g, "");
     return [
       {
-        id: `${PLUGIN_REGISTRY}:${source}`,
+        // Keep catalog IDs stable independently of the display registry.
+        id: `Rakazo:${source}`,
         name,
         displayName: row.name,
         description: row.description,
