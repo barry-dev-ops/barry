@@ -53,6 +53,8 @@ describe("appearance preference", () => {
     expect(tokensForAppearance("light")).toBe(lightTokens);
     for (const key of Object.keys(darkTokens) as (keyof ColorTokens)[]) {
       if (
+        key === "primary" ||
+        key === "primaryForeground" ||
         key === "chatUserForeground" ||
         key === "destructiveForeground" ||
         key === "destructiveFill" ||
@@ -84,7 +86,6 @@ describe("appearance preference", () => {
     const light = tokensForAppearance("light");
     expect(dark.secondary).not.toBe(dark.primary);
     expect(light.secondary).not.toBe(light.primary);
-    expect(dark.secondaryForeground).not.toBe(dark.primaryForeground);
   });
 
   it("separates user bubbles from bot bubbles and the sidebar from the app", () => {
@@ -135,18 +136,38 @@ function contrastRatio(a: string, b: string): number {
 }
 
 describe("Barry product palette", () => {
-  it("uses ink primary actions and restrained accessible accents across surfaces", () => {
+  it("uses purple primary actions with white text across all surfaces", () => {
+    for (const palette of [lightTokens, webLightTokens, darkTokens, webDarkTokens]) {
+      expect(palette.primary).toBe("#873EAB");
+      expect(palette.primaryForeground).toBe("#FFFFFF");
+      expect(contrastRatio(palette.primaryForeground, palette.primary)).toBeGreaterThanOrEqual(4.5);
+    }
     for (const palette of [lightTokens, webLightTokens]) {
-      expect(palette.primary).toBe("#111111");
       expect(palette.link).toBe("#873EAB");
-      expect(palette.ring).toBe("#C34B89");
+      expect(palette.ring).toBe(palette.link);
     }
     for (const palette of [darkTokens, webDarkTokens]) {
-      expect(palette.background).toBe("#111111");
-      expect(palette.primary).toBe("#FFFFFF");
-      expect(palette.primaryForeground).toBe("#111111");
-      expect(palette.link).toBe("#FF5910");
-      expect(palette.ring).toBe("#FF5910");
+      expect(palette.link).toBe("#C58EE0");
+      expect(palette.ring).toBe(palette.link);
+    }
+  });
+
+  it("keeps links and focus accessible on neutral surfaces in every mode", () => {
+    for (const palette of [lightTokens, webLightTokens, darkTokens, webDarkTokens]) {
+      for (const surface of [palette.background, palette.card, palette.dialog, palette.sidebar]) {
+        expect(contrastRatio(palette.link, surface)).toBeGreaterThanOrEqual(4.5);
+        expect(contrastRatio(palette.ring, surface)).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
+
+  it("keeps hover readable and disabled actions purple on web and Electron", () => {
+    for (const palette of [webLightTokens, webDarkTokens]) {
+      expect(palette.primaryHover).toBe("#763497");
+      expect(palette.primaryDisabled).toBe(`${palette.primary}61`);
+      expect(contrastRatio(palette.primaryForeground, palette.primaryHover)).toBeGreaterThanOrEqual(
+        4.5,
+      );
     }
   });
 });
