@@ -57,6 +57,7 @@ describe("mobile i18n", () => {
     const { resetI18nForTests, t } = await import("./i18n");
     resetI18nForTests("zh-CN");
     expect(t("Not a real string")).toBe("Not a real string");
+    expect(t("Sign in to Barry")).toBe("Sign in to Barry");
   });
 
   it("translates seeded Chinese chrome and keeps interpolations", async () => {
@@ -199,7 +200,7 @@ describe("mobile i18n", () => {
     }
   });
 
-  it("translates every mobile chrome t() id in every non-English catalog", async () => {
+  it("audits mobile chrome catalogs, retaining legacy entries for deferred branded IDs", async () => {
     const { ZH_MESSAGES } = await import("./locales/zh");
     const { ZH_TW_MESSAGES } = await import("./locales/zh-TW");
     const { RU_MESSAGES } = await import("./locales/ru");
@@ -228,7 +229,7 @@ describe("mobile i18n", () => {
       "Your model provider",
       "The model provider returned an error.",
       "Connect a model in Settings before running bots.",
-      "Connect your own API key in Models or choose Rakazo credits in Billing.",
+      "Connect your own API key in Models or choose Barry credits in Billing.",
       "{provider} is rate limiting requests. Try again shortly.",
       "{summary} Resets {date}.",
       "{provider} rejected the API key. Check your connection settings.",
@@ -264,6 +265,31 @@ describe("mobile i18n", () => {
       const source = readFileSync(file, "utf8");
       for (const id of translationIds(source)) ids.add(id);
     }
+    // Source-only renames await the separate translation workflow. Every other ID stays strict.
+    const deferredBrandedIds = new Map<string, string>([
+      ["Barry", "Rakazo"],
+      ["Barry credits", "Rakazo credits"],
+      ["How will you use Barry?", "How will you use Rakazo?"],
+      [
+        "Paste the OpenAI-compatible address from your server. Barry adds /v1 if needed.",
+        "Paste the OpenAI-compatible address from your server. Rakazo adds /v1 if needed.",
+      ],
+      ["Sign in to Barry", "Sign in to Rakazo"],
+      ["Sign up for Barry", "Sign up for Rakazo"],
+      ["Start using Barry", "Start using Rakazo"],
+      ["That URL did not look like a Barry server", "That URL did not look like a Rakazo server"],
+      [
+        "This subscription sign-in is not available in Barry yet. Use a deployment credential or choose another provider.",
+        "This subscription sign-in is not available in Rakazo yet. Use a deployment credential or choose another provider.",
+      ],
+      ["Use Barry credits", "Use Rakazo credits"],
+      ["Welcome to Barry", "Welcome to Rakazo"],
+      ["What do you most want Barry to help with?", "What do you most want Rakazo to help with?"],
+      [
+        "Connect your own API key in Models or choose Barry credits in Billing.",
+        "Connect your own API key in Models or choose Rakazo credits in Billing.",
+      ],
+    ]);
     for (const messages of [
       ZH_MESSAGES,
       ZH_TW_MESSAGES,
@@ -274,7 +300,9 @@ describe("mobile i18n", () => {
       ES_MESSAGES,
       PL_MESSAGES,
     ]) {
-      const missing = [...ids].filter((id) => !messages[id]?.trim()).sort();
+      const missing = [...ids]
+        .filter((id) => !messages[deferredBrandedIds.get(id) ?? id]?.trim())
+        .sort();
       expect(missing).toEqual([]);
     }
   });

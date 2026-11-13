@@ -101,7 +101,7 @@ describe("display and warnings", () => {
 });
 
 describe("probeApiBase", () => {
-  it("accepts a Rakazo /rpc/health response", async () => {
+  it("accepts a Barry /rpc/health response", async () => {
     const fetchImpl = vi.fn(
       async () =>
         new Response(JSON.stringify({ json: { ok: true, version: "0.1.0" } }), { status: 200 }),
@@ -116,12 +116,13 @@ describe("probeApiBase", () => {
     );
   });
 
-  it("rejects a host that is up but is not Rakazo", async () => {
+  it("rejects a host that is up but is not Barry", async () => {
     const fetchImpl = vi.fn(
       async () => new Response("ok", { status: 200 }),
     ) as unknown as typeof fetch;
     await expect(probeApiBase("https://example.com", fetchImpl)).resolves.toMatchObject({
       ok: false,
+      error: "That URL did not look like a Barry server",
     });
   });
 
