@@ -73,8 +73,8 @@ describe("appearance preference", () => {
   it("keeps working-state blue in its own semantic token across themes", () => {
     expect(darkTokens.statusWorking).toBeTruthy();
     expect(lightTokens.statusWorking).toBeTruthy();
-    expect(darkTokens.statusWorking).toBe(darkTokens.link);
-    expect(lightTokens.statusWorking).toBe(lightTokens.link);
+    expect(darkTokens.statusWorking).toBe("#459FFE");
+    expect(lightTokens.statusWorking).toBe("#0C64C1");
     expect(darkTokens.statusWorking).not.toBe(darkTokens.primary);
     expect(lightTokens.statusWorking).not.toBe(lightTokens.primary);
   });
@@ -133,6 +133,23 @@ function contrastRatio(a: string, b: string): number {
   const lb = luminance(backdrop);
   return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
 }
+
+describe("Barry product palette", () => {
+  it("uses ink primary actions and restrained accessible accents across surfaces", () => {
+    for (const palette of [lightTokens, webLightTokens]) {
+      expect(palette.primary).toBe("#111111");
+      expect(palette.link).toBe("#873EAB");
+      expect(palette.ring).toBe("#C34B89");
+    }
+    for (const palette of [darkTokens, webDarkTokens]) {
+      expect(palette.background).toBe("#111111");
+      expect(palette.primary).toBe("#FFFFFF");
+      expect(palette.primaryForeground).toBe("#111111");
+      expect(palette.link).toBe("#FF5910");
+      expect(palette.ring).toBe("#FF5910");
+    }
+  });
+});
 
 describe("light palette readability", () => {
   it.each(["background", "card", "muted"] as const)(

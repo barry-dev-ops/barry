@@ -22,6 +22,37 @@ import {
 import { referralEmail } from "./referral-email.js";
 import { welcomeEmail } from "./welcome-email.js";
 
+// Only these renamed IDs await the separate translation-catalog update.
+// Keep the catalog audit strict for every other source string.
+const RENAMED_CATALOG_IDS = new Set([
+  "Barry also has apps for",
+  "Barry is open source. If you like it,",
+  "Confirm Barry account deletion",
+  "Confirm your Barry page claim",
+  "Enter this code in Barry to confirm it's you:",
+  "Enter this code in Barry to delete your account:",
+  "Enter this code to sign in to Barry:",
+  "If you're enjoying Barry,",
+  "Invite a friend to Barry: they get {weeks} weeks free, and you earn a free month when they start a qualifying subscription with a new card.",
+  "Open Barry",
+  "Reset your Barry password",
+  "Reset your Barry password:",
+  "Self-host Barry",
+  "Thanks for signing up for Barry.",
+  "Thanks for submitting a plugin to the Barry marketplace.",
+  "Then return to Barry to sign in.",
+  "Verify your Barry email",
+  "We couldn't list {name} in the Barry plugin marketplace.",
+  "We received your Barry plugin",
+  "Welcome to Barry",
+  "Your Barry confirmation code",
+  "Your Barry page claim: {name}",
+  "Your Barry plugin submission: {name}",
+  "Your Barry sign-in code",
+  "{name} is in the Barry marketplace",
+  "{name} is now listed in the Barry plugin marketplace.",
+]);
+
 describe("account email templates", () => {
   const url = "https://app.example.test/verify?token=fake-token&callbackURL=%2Fsign-in";
 
@@ -161,9 +192,15 @@ describe("email languages", () => {
     for (const message of messages) {
       expect(message.html).toContain('lang="pl"');
       expect(message.html).toContain('dir="ltr"');
-      expect(Object.values(CATALOGS.pl!)).toContain(message.subject);
       expect(message.text).not.toMatch(/\{\w+\}/);
     }
+    expect(messages.map((message) => message.subject)).toEqual([
+      "Verify your Barry email",
+      "Your Barry sign-in code",
+      "Reset your Barry password",
+      "Confirm Barry account deletion",
+      "Your Barry confirmation code",
+    ]);
     for (const index of [0, 2]) {
       expect(messages[index]?.text).toContain(url);
       expect(messages[index]?.html).toContain(`href="${url.replaceAll("&", "&amp;")}"`);
@@ -211,11 +248,11 @@ describe("email languages", () => {
     }
   });
 
-  it("writes a code email in Spanish", async () => {
+  it("keeps Spanish layout and falls back to English for renamed code-email copy", async () => {
     const message = await signInCodeEmail("user@example.test", "123456", "es");
-    expect(message.subject).toBe("Tu código para iniciar sesión en Rakazo");
+    expect(message.subject).toBe("Your Barry sign-in code");
     expect(message.html).toContain('lang="es"');
-    expect(message.text).toContain("Introduce este código para iniciar sesión en Rakazo:");
+    expect(message.text).toContain("Enter this code to sign in to Barry:");
     expect(message.html).toContain('dir="ltr"');
   });
 
@@ -231,13 +268,13 @@ describe("email languages", () => {
       "Hola, Ana:",
     );
     const english = await welcomeEmail(user, "https://example.test/u");
-    expect(english.subject).toBe("Welcome to Rakazo");
+    expect(english.subject).toBe("Welcome to Barry");
     expect(english.text).toContain("Hi Ana,");
-    expect(english.text).toContain("Rakazo also has apps for iPhone");
+    expect(english.text).toContain("Barry also has apps for iPhone");
   });
 
   it.each(Object.entries(CATALOGS))(
-    "translates every email string into %s with its placeholders",
+    "audits the %s email catalog, including deferred renamed IDs and placeholders",
     (_locale, catalog) => {
       const dir = dirname(fileURLToPath(import.meta.url));
       const ids = readdirSync(dir)
@@ -249,7 +286,11 @@ describe("email languages", () => {
         );
       expect(ids.length).toBeGreaterThan(30);
       const placeholders = (text: string) => [...text.matchAll(/\{\w+\}/g)].map(String).sort();
-      for (const id of ids) {
+      // Catalog updates ship separately; still validate every existing translation.
+      for (const sourceId of ids) {
+        const id = RENAMED_CATALOG_IDS.has(sourceId)
+          ? sourceId.replaceAll("Barry", "Rakazo")
+          : sourceId;
         expect(catalog[id], id).toBeTruthy();
         expect(placeholders(catalog[id] ?? ""), id).toEqual(placeholders(id));
       }

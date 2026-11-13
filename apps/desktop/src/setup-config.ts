@@ -6,7 +6,7 @@ import { t } from "./i18n.js";
 
 /** Managed desktop origin; development keeps its usual web/API ports. */
 export const DEFAULT_LOCAL_WEB_URL = "http://127.0.0.1:45173";
-/** Hosted Rakazo; setup saves it as an `existing` server so it opens like any other. */
+/** Hosted Barry; setup saves it as an `existing` server so it opens like any other. */
 export const RAKAZO_CLOUD_URL = "https://app.rakazo.com";
 export const PROBE_RESPONSE_LIMIT_BYTES = 64 * 1024;
 
@@ -178,7 +178,7 @@ export function servesBundledRenderer(targetUrl: string, managedLocalStack: bool
   }
 }
 
-/** Each Rakazo origin gets its own persistent cookie and storage partition. */
+/** Each Barry origin gets its own persistent cookie and storage partition. */
 export function sessionPartitionForServerUrl(targetUrl: string): string | null {
   try {
     const url = new URL(targetUrl);

@@ -65,6 +65,15 @@ const interrogates = <T extends { name: string }>(skills: T[]) =>
   skills.filter((skill) => skill.name.trim().toLowerCase() === "interrogate");
 
 describe("built-in skill precedence in the API", () => {
+  it("keeps the existing product skill ID when its display name changes", async () => {
+    const { service } = setup([]);
+    await expect(service.get(actor, { skillId: "builtin:Rakazo" })).resolves.toMatchObject({
+      id: "builtin:Rakazo",
+      name: "Barry",
+      readOnly: true,
+    });
+  });
+
   it.each(["interrogate", " Interrogate "])(
     "keeps %j listed, readable and mutable",
     async (name) => {
