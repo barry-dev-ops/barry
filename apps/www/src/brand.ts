@@ -29,9 +29,9 @@ export const BRAND_LOGOS = [
 ] as const;
 
 export const BRAND_COLORS = [
+  { name: "Purple", hex: "#873EAB" },
   { name: "Orange", hex: "#FF5910" },
   { name: "Ink", hex: "#111111" },
-  { name: "Purple", hex: "#873EAB" },
   { name: "Pink", hex: "#C34B89" },
   { name: "White", hex: "#FFFFFF" },
 ] as const;
