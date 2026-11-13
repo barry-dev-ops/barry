@@ -46,7 +46,7 @@ export function NativeActionButton({
   const small = size === "compact";
   const effectiveProminence = actionProminence(prominence, selected);
   const role = prominence === "destructive" ? "destructive" : "default";
-  // The prominent styles draw a white label, which disappears on the light dark-mode primary.
+  // Keep the shared filled-action foreground explicit on prominent styles.
   const filled = !inactive && effectiveProminence === "primary";
   const ownLabel = stretches || filled || variant !== undefined;
   const measuredWidth = StyleSheet.flatten(style)?.width;
@@ -77,7 +77,9 @@ export function NativeActionButton({
         ? tokens.destructive
         : tokens.destructiveFill
       : effectiveProminence === "primary"
-        ? tokens.primary
+        ? variant
+          ? tokens.link
+          : tokens.primary
         : undefined;
   const button = (
     <Host

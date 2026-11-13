@@ -17,8 +17,19 @@ const packageJson = JSON.parse(
 
 describe("desktop package metadata", () => {
   it("shares the customer-facing name between Electron and electron-builder", () => {
-    expect(packageJson.productName).toBe("Rakazo");
+    expect(packageJson.productName).toBe("Barry");
     expect(packageJson.build?.productName).toBeUndefined();
+  });
+
+  it("keeps the installation identity and existing icon source", () => {
+    expect(packageJson).toMatchObject({
+      name: "@rakazo/desktop",
+      build: {
+        appId: "dev.rakazo.desktop",
+        extraMetadata: { name: "rakazo" },
+        mac: { icon: "../../packages/ui-tokens/assets/Rakazo.icon" },
+      },
+    });
   });
 
   it.each(["es", "pl"])("ships a %s version of every macOS permission prompt", (locale) => {

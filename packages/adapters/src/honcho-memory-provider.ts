@@ -68,7 +68,7 @@ export function honchoBotPeerId(botId: string): string {
   return honchoResourceId(`bot-${botId}`);
 }
 
-/** Peer IDs Rakazo creates and writes to: the shared Space peer and every bot peer. */
+/** Peer IDs Barry creates and writes to: the shared Space peer and every bot peer. */
 export function isReservedHonchoPeerId(peerId: string): boolean {
   return peerId === SHARED_PEER_ID || peerId.startsWith("bot-");
 }
@@ -110,7 +110,7 @@ function parseHonchoConnection(
   }
   // Rakazo writes to its own peers, so a user peer that aliases one would not stay read-only.
   if (userPeerId && isReservedHonchoPeerId(userPeerId)) {
-    throw new Error("userPeerId uses a peer ID reserved for Rakazo");
+    throw new Error("userPeerId uses a peer ID reserved for Barry");
   }
   // A user peer only exists in a workspace another Honcho app already writes to.
   if (userPeerId && !workspaceId) {

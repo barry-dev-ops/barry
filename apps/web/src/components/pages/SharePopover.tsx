@@ -113,7 +113,7 @@ export function SharePopover({
           </>
         ) : (
           <>
-            {shared ? <Globe className="size-4 text-primary" strokeWidth={1.6} /> : null}
+            {shared ? <Globe className="size-4 text-link" strokeWidth={1.6} /> : null}
             <Trans>Share</Trans>
           </>
         )}

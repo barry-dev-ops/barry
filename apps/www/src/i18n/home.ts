@@ -1100,14 +1100,14 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
     },
   },
   en: {
-    title: "Rakazo | Open source Grok Bot alternative",
+    title: "Barry | Open source Grok Bot alternative",
     description: SITE_DESCRIPTION,
     ogImageAlt:
-      "Rakazo. AI teammates you actually own. Your keys, your model, your machine.",
+      "Barry. AI teammates you actually own. Your keys, your model, your machine.",
     availableLanguage: "English",
     skipToContent: "Skip to content",
     nav: {
-      home: "Rakazo home",
+      home: "Barry home",
       primary: "Primary",
       menu: "Menu",
       docs: "Docs",
@@ -1197,7 +1197,7 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
         {
           question: "Do I need an API key if I already pay for Claude or ChatGPT?",
           answer:
-            "No. Sign in with Claude Pro/Max or ChatGPT Plus/Pro and that subscription covers the model. An API key is the other path, for Anthropic, OpenAI, OpenRouter, or Grok. Rakazo does not pay either way.",
+            "No. Sign in with Claude Pro/Max or ChatGPT Plus/Pro and that subscription covers the model. An API key is the other path, for Anthropic, OpenAI, OpenRouter, or Grok. Barry does not pay either way.",
         },
         {
           question: "Can I run a local model?",

@@ -209,6 +209,7 @@ it.each(["in", "up"])(
   async (mode) => {
     route.mode = mode;
     await render();
+    expect(host.textContent).toContain(mode === "in" ? "Sign in to Barry" : "Sign up for Barry");
     const email = host.querySelector('input[aria-label="Email"]')!;
     const password = host.querySelector('input[type="password"]')!;
     const submit = host.querySelector('button[data-prominence="primary"]')!;

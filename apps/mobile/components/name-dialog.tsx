@@ -186,7 +186,7 @@ function createStyles() {
     error: { fontSize: 12, color: tokens.destructive },
     actions: { flexDirection: "row", justifyContent: "flex-end", gap: 8 },
     action: { minHeight: 48, justifyContent: "center", paddingHorizontal: 12 },
-    actionText: { fontSize: 14, fontWeight: "600", color: tokens.primary },
+    actionText: { fontSize: 14, fontWeight: "600", color: tokens.link },
     disabled: { opacity: 0.38 },
   });
 }

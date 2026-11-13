@@ -69,6 +69,15 @@ describe("mobile appearance", () => {
     expect(colorSchemeOverride).toBe("light");
   });
 
+  it("keeps purple actions and white labels when switching appearance", async () => {
+    const { mobileTokens, setAppearancePreference } = await import("./appearance");
+    for (const appearance of ["light", "dark"] as const) {
+      await setAppearancePreference(appearance);
+      expect(mobileTokens().primary).toBe("#873EAB");
+      expect(mobileTokens().primaryForeground).toBe("#FFFFFF");
+    }
+  });
+
   it("notifies mounted navigation when the saved preference loads", async () => {
     const { UI_APPEARANCE_STORAGE_KEY, lightTokens } = await import("@rakazo/ui-tokens");
     const { loadAppearancePreference, mobileTokens, subscribeAppearance } = await import(
