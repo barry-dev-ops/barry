@@ -254,7 +254,7 @@ describe("reviewing submissions", () => {
     expect(preview).not.toHaveBeenCalled();
   });
 
-  it("approves the previewed commit and lists it in the marketplace", async () => {
+  it("approves the previewed commit and lists it with a stable Rakazo ID and Barry registry", async () => {
     const { deps, prisma } = await submitted();
     preview.mockResolvedValue({
       source: { gitUrl: "https://github.com/acme/plugins", subdir: "tickets" },
@@ -266,6 +266,7 @@ describe("reviewing submissions", () => {
     await reviewPluginSubmission(deps, { id: "sub-1", decision: "approve" });
     expect(await approvedPluginEntries(prisma)).toEqual([
       expect.objectContaining({
+        id: "Rakazo:https://github.com/acme/plugins@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#tickets",
         name: "acme-tickets",
         displayName: "Acme Tickets",
         registry: "Barry",
