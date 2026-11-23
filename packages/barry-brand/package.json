@@ -1,0 +1,28 @@
+{
+  "name": "@barry/brand",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./brand.css": "./src/brand.css",
+    "./mascot": "./src/mascot.tsx",
+    "./mascot.css": "./src/mascot.css",
+    "./assets/*": "./assets/*"
+  },
+  "scripts": {
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --root ../.. packages/barry-brand/src"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  },
+  "peerDependencies": {
+    "react": "19.3.1"
+  }
+}

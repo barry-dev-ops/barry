@@ -1,0 +1,94 @@
+.barry-mascot {
+  display: block;
+  flex: none;
+  overflow: visible;
+  color: var(--barry-cream);
+}
+
+.barry-mascot__background,
+.barry-mascot__head {
+  fill: var(--barry-chocolate);
+}
+
+.barry-mascot__head {
+  stroke: var(--barry-cream);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4.5;
+}
+
+.barry-mascot__muzzle {
+  fill: var(--barry-cream);
+}
+
+.barry-mascot__nose {
+  fill: var(--barry-chocolate);
+}
+
+.barry-mascot__mouth {
+  fill: none;
+  stroke: var(--barry-chocolate);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.barry-mascot__talk-mouth {
+  display: none;
+  fill: var(--barry-chocolate);
+}
+
+.barry-mascot__pupil {
+  display: none;
+  fill: var(--barry-chocolate);
+  stroke: none;
+}
+
+.barry-mascot[data-eyes="attentive"] .barry-mascot__eye {
+  fill: var(--barry-cream);
+}
+
+.barry-mascot[data-eyes="attentive"] .barry-mascot__pupil {
+  display: block;
+}
+
+.barry-mascot[data-mouth="large-smile"] .barry-mascot__mouth {
+  stroke-width: 2.5;
+}
+
+.barry-mascot[data-mouth="talking"] .barry-mascot__mouth {
+  display: none;
+}
+
+.barry-mascot[data-mouth="talking"] .barry-mascot__talk-mouth {
+  display: block;
+}
+
+.barry-mascot.barry-mascot--motion .barry-mascot__eye,
+.barry-mascot.barry-mascot--motion .barry-mascot__mouth,
+.barry-mascot.barry-mascot--motion .barry-mascot__talk-mouth {
+  transition:
+    transform 180ms ease,
+    d 180ms ease,
+    opacity 180ms ease;
+}
+
+.barry-mascot--motion[data-mouth="talking"] .barry-mascot__talk-mouth {
+  animation: barry-talk 650ms ease-in-out infinite alternate;
+}
+
+@keyframes barry-talk {
+  to {
+    transform: scaleY(0.55);
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barry-mascot.barry-mascot--motion .barry-mascot__eye,
+  .barry-mascot.barry-mascot--motion .barry-mascot__mouth,
+  .barry-mascot.barry-mascot--motion .barry-mascot__talk-mouth {
+    transition: none;
+    animation: none;
+  }
+}

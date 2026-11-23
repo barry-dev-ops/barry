@@ -1,0 +1,19 @@
+[data-barry-theme="light"] {
+  color-scheme: light;
+  --barry-background: #fbf8f2;
+  --barry-foreground: #33383d;
+  --barry-card: #fff3d9;
+  --barry-primary: #3e2214;
+  --barry-primary-foreground: #fff3d9;
+  --barry-accent: #ffc928;
+}
+
+[data-barry-theme="dark"] {
+  color-scheme: dark;
+  --barry-background: #3e2214;
+  --barry-foreground: #fff3d9;
+  --barry-card: #33383d;
+  --barry-primary: #ffc928;
+  --barry-primary-foreground: #3e2214;
+  --barry-accent: #ffc928;
+}

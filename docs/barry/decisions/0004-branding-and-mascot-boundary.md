@@ -1,0 +1,5 @@
+# Keep Barry branding separate and defer native mascot rendering
+
+Put Barry's product palette and theme values in a small `@barry/brand` package, without changing Rakazo's shared token package, generated styles, or default appearance. Export typed brand configuration and opt-in semantic CSS variables for light and dark Barry surfaces. Share only renderer-neutral data across platforms; the web SVG renderer may live in a Barry-owned module, while a native renderer is deferred until needed.
+
+Mascot expressions are caller-controlled values mapped to presentation configuration, independent of agent lifecycle and rendering platform. Use the approved Barry artwork as the geometry source; do not derive artwork from Rakazo assets. The approved brown bear app icon was supplied and is retained as the visual reference in the brand package. The web renderer uses separated SVG face layers; native rendering remains deferred. This keeps upstream touch points minimal and avoids speculative native abstractions.
